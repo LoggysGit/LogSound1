@@ -1,9 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2021-2024 Espressif Systems (Shanghai) CO LTD
- *
- * SPDX-License-Identifier: Unlicense OR CC0-1.0
- */
+/* SPDX-FileCopyrightText: 2021-2024 Espressif Systems (Shanghai) CO LTD | SPDX-License-Identifier: Unlicense OR CC0-1.0 */
 
+// = INCLUDES = //
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,10 +23,15 @@
 #include "esp_a2dp_api.h"
 #include "esp_avrc_api.h"
 
-/* device name */
-static const char local_device_name[] = CONFIG_EXAMPLE_LOCAL_DEVICE_NAME;
+#include "modules/memory_controller/memory_controller.hpp"
+#include "modules/stm_gateway/stm_gateway.hpp"
 
-/* event for stack up */
+// = DEFINES = //
+#define DEVICE_NAME "LogSound1"
+
+// Device Name
+static const char local_device_name[] = DEVICE_NAME;
+// Event to Stack Up
 enum {
     BT_APP_EVT_STACK_UP = 0,
 };
@@ -183,6 +185,15 @@ static void bt_av_hdl_stack_evt(uint16_t event, void *p_param)
     }
 }
 
+/*************** FUNCTIONS ****************/
+void setup(){
+
+}
+
+void loop(){
+
+}
+
 /*******************************
  * MAIN ENTRY POINT
  ******************************/
@@ -238,10 +249,7 @@ void app_main(void)
     /* set default parameters for Legacy Pairing (use fixed pin code 1234) */
     esp_bt_pin_type_t pin_type = ESP_BT_PIN_TYPE_FIXED;
     esp_bt_pin_code_t pin_code;
-    pin_code[0] = '1';
-    pin_code[1] = '2';
-    pin_code[2] = '3';
-    pin_code[3] = '4';
+    pin_code[0] = '1'; pin_code[1] = '2'; pin_code[2] = '3'; pin_code[3] = '4';
     esp_bt_gap_set_pin(pin_type, 4, pin_code);
 
     ESP_LOGI(BT_AV_TAG, "Own address:[%s]", bda2str((uint8_t *)esp_bt_dev_get_address(), bda_str, sizeof(bda_str)));
